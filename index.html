@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Master DSA, practice coding questions, take timed quizzes, simulate technical interview rounds, and receive real-time performance insights.">
+  <title> DSA - Premium Interview Preparation Platform</title>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Dynamic SVG Gradients Definitions -->
+  <svg style="position: absolute; width: 0; height: 0;" width="0" height="0">
+    <defs>
+      <linearGradient id="cyan-blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00f2fe" />
+        <stop offset="100%" stop-color="#00bfff" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- 1. HERO LANDING PAGE VIEW -->
+  <div id="view-landing" class="landing-view active">
+    <header class="landing-header">
+      <div class="logo-area">
+        <span class="logo-icon text-blue">☋</span>
+        <span>Practice<span class="text-cyan">DSA</span></span>
+      </div>
+      <button id="btn-landing-enter" class="btn btn-secondary btn-sm">Enter Dashboard</button>
+    </header>
+
+    <main class="landing-hero">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Master DSA.<br>
+          Crack Interviews.<br>
+          <span>Build Confidence.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Practice data structures, algorithms, coding questions, timed challenges, and simulated technical interview rounds — all in one unified, futuristic environment.
+        </p>
+        <div class="hero-ctas">
+          <button id="btn-hero-practice" class="btn btn-primary">Start Practicing</button>
+          <button id="btn-hero-concepts" class="btn btn-secondary">Explore DSA Concepts</button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span class="num">500+</span>
+            <span class="label">Problems</span>
+          </div>
+          <div class="stat-box">
+            <span class="num">50+</span>
+            <span class="label">Concepts</span>
+          </div>
+          <div class="stat-box">
+            <span class="num">10+</span>
+            <span class="label">Patterns</span>
+          </div>
+          <div class="stat-box">
+            <span class="num">100%</span>
+            <span class="label">Interactive</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-graphic">
+        <div class="graphic-wrapper">
+          <div class="graphic-code-snippet">
+function binarySearch(arr, target) {
+    let low = 0;
+    let high = arr.length - 1;
+    
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        if (arr[mid] === target) return mid;
+        else if (arr[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}</div>
+          <div class="graphic-nodes">
+            <div class="graphic-line line12"></div>
+            <div class="graphic-line line24"></div>
+            <div class="graphic-line line13"></div>
+            <div class="graphic-node n1"></div>
+            <div class="graphic-node n2"></div>
+            <div class="graphic-node n3"></div>
+            <div class="graphic-node n4"></div>
+          </div>
+          <div class="graphic-badge-box">
+            <div class="badge-circle"></div>
+            <span class="font-mono text-cyan" style="font-size: 0.75rem;">AI Interviewer Active</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 2. LANGUAGE SELECTION VIEW -->
+  <div id="view-lang-select" class="lang-selection-view" style="display:none">
+    <div class="lang-title-area">
+      <h2>Choose your coding language</h2>
+      <p class="text-muted mt-sm">Your selection will configure code templates and practice dashboards. You can change this anytime.</p>
+    </div>
+
+    <div class="lang-grid">
+      <div class="lang-card" data-lang="c">
+        <div class="lang-icon text-muted">🅲</div>
+        <div class="lang-name">C</div>
+        <div class="lang-desc">Procedural language, static typing, manual memory management.</div>
+      </div>
+      <div class="lang-card" data-lang="cpp">
+        <div class="lang-icon text-blue">🅲++</div>
+        <div class="lang-name">C++</div>
+        <div class="lang-desc">Standard choice for CP. High execution speed, strong Standard Template Library (STL).</div>
+      </div>
+      <div class="lang-card" data-lang="java">
+        <div class="lang-orange lang-icon">☕</div>
+        <div class="lang-name">Java</div>
+        <div class="lang-desc">Robust, OOP design, platform independent, garbage collected environment.</div>
+      </div>
+      <div class="lang-card" data-lang="python">
+        <div class="lang-icon text-cyan">🐍</div>
+        <div class="lang-name">Python</div>
+        <div class="lang-desc">Clean syntax, rapid prototyping, highly expressive, rich built-in functions.</div>
+      </div>
+      <div class="lang-card" data-lang="javascript">
+        <div class="lang-icon text-orange">🟨</div>
+        <div class="lang-name">JavaScript</div>
+        <div class="lang-desc">Web standard, dynamic, runs directly in the compiler sandbox for live runs.</div>
+      </div>
+    </div>
+
+    <div class="lang-footer-cta text-center">
+      <button id="btn-confirm-lang" class="btn btn-primary" disabled>Confirm Selection</button>
+    </div>
+  </div>
+
+  <!-- 3. SPA CORE INTERACTIVE ENVIRONMENT (Sidebar + Top Bar + Views) -->
+  <div id="app-dashboard-layout" class="app-container" style="display:none">
+    <!-- Sidebar navigation -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-icon">☋</span>
+        <span>Practice <span class="text-cyan">DSA</span></span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" data-view="dashboard">
+          <span class="nav-link-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-link" data-view="concepts">
+          <span class="nav-link-icon">📚</span>
+          <span>DSA Concepts</span>
+        </a>
+        <a class="nav-link" data-view="problems">
+          <span class="nav-link-icon">💻</span>
+          <span>Practice Problems</span>
+        </a>
+        <a class="nav-link" data-view="interviews">
+          <span class="nav-link-icon">🎯</span>
+          <span>Interview Rounds</span>
+        </a>
+        <a class="nav-link" data-view="quiz-config">
+          <span class="nav-link-icon">⏱</span>
+          <span>Timed Quiz</span>
+        </a>
+        <a class="nav-link" data-view="progress">
+          <span class="nav-link-icon">📈</span>
+          <span>My Progress</span>
+        </a>
+        <a class="nav-link" data-view="performance">
+          <span class="nav-link-icon">🧠</span>
+          <span>Performance Review</span>
+        </a>
+        <a class="nav-link" data-view="settings">
+          <span class="nav-link-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="profile-box">
+          <div class="profile-avatar">U</div>
+          <div class="profile-info">
+            <span class="name text-white">Guest User</span>
+            <span class="role">Developer Mode</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Content Workspace -->
+    <div class="main-wrapper">
+      <!-- Top header for desktop -->
+      <header class="top-header">
+        <div class="search-bar-container">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" class="search-input" placeholder="Search DSA problems...">
+        </div>
+
+        <div class="header-actions">
+          <div class="lang-selector-header" id="header-lang-btn">
+            <span>Language:</span>
+            <strong class="text-cyan" id="header-lang-name">JavaScript</strong>
+          </div>
+          <div class="header-progress-box">
+            <span class="header-progress-label">Solved: <span id="header-solved-count" class="text-white">0</span></span>
+            <div class="header-progress-bar-bg">
+              <div class="header-progress-bar-fill" id="header-solved-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Mobile navigation bar -->
+      <div class="mobile-navbar">
+        <button class="hamburger-menu" id="btn-hamburger">☰</button>
+        <div class="logo-area" style="font-size: 1.15rem;">
+          <span class="logo-icon text-blue">☋</span>
+          <span>Practice</span>
+        </div>
+        <div class="profile-avatar" style="width:30px; height:30px; font-size: 0.8rem;">U</div>
+      </div>
+
+      <!-- MAIN WORKSPACE MAIN CONTENT AREA (dynamic switches) -->
+      <main id="main-content">
+        
+        <!-- View A: Dashboard Overview -->
+        <div id="view-dashboard" class="content-view fade-in">
+          <div class="dashboard-header mb-lg">
+            <h2>Welcome back, Candidate!</h2>
+            <p class="text-muted">Ready to sharpen your problem-solving skills?</p>
+          </div>
+
+          <!-- Quick Metrics widgets -->
+          <div class="dashboard-grid-1">
+            <div class="widget-card glass-panel neon-border">
+              <div class="widget-icon blue">🔥</div>
+              <div class="widget-info">
+                <span class="val text-orange" id="dash-streak-val">0</span>
+                <span class="lbl">Streak Days</span>
+              </div>
+            </div>
+            <div class="widget-card glass-panel neon-border">
+              <div class="widget-icon green">✓</div>
+              <div class="widget-info">
+                <span class="val text-success" id="dash-solved-val">0</span>
+                <span class="lbl">Solved Today</span>
+              </div>
+            </div>
+            <div class="widget-card glass-panel neon-border">
+              <div class="widget-icon blue">🎯</div>
+              <div class="widget-info">
+                <span class="val text-cyan" id="dash-accuracy-val">0%</span>
+                <span class="lbl">Accuracy</span>
+              </div>
+            </div>
+            <div class="widget-card glass-panel neon-border">
+              <div class="widget-icon orange">⏱</div>
+              <div class="widget-info">
+                <span class="val text-orange" id="dash-time-val">0m</span>
+                <span class="lbl">Avg Time</span>
+              </div>
+            </div>
+            <div class="widget-card glass-panel neon-border">
+              <div class="widget-icon green">🚀</div>
+              <div class="widget-info">
+                <span class="val text-cyan" id="dash-readiness-val">0%</span>
+                <span class="lbl">Readiness</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub widgets grid -->
+          <div class="dashboard-grid-2">
+            <!-- Suggested next step -->
+            <div class="activity-card glass-panel neon-border">
+              <h3>Next Recommended Tasks</h3>
+              <div class="activity-list" id="dash-recs-list">
+                <!-- Recommendations populated dynamically -->
+              </div>
+              <button id="btn-dash-continue" class="btn btn-primary mt-lg w-full">Continue Practice</button>
+            </div>
+
+            <!-- Readiness progress wheel -->
+            <div class="activity-card glass-panel neon-border text-center">
+              <h3>Interview Readiness</h3>
+              <div class="readiness-widget mt-md">
+                <svg class="radial-progress-svg" viewBox="0 0 150 150">
+                  <circle class="radial-track" cx="75" cy="75" r="70"></circle>
+                  <circle class="radial-fill" id="radial-readiness-fill" cx="75" cy="75" r="70"></circle>
+                </svg>
+                <div class="radial-center-val text-cyan" id="dash-readiness-radial-text">0%</div>
+              </div>
+              <p class="text-muted mt-md" style="font-size: 0.8rem;">Ready for Screening rounds based on mock results.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- View B: DSA Concept Library -->
+        <div id="view-concepts" class="content-view fade-in">
+          <div class="section-intro mb-lg">
+            <h2>DSA Concept Library</h2>
+            <p class="text-muted">Revise fundamental data structures and algorithmic designs.</p>
+          </div>
+
+          <div id="concepts-categories-list">
+            <!-- Categories injected dynamically -->
+          </div>
+        </div>
+
+        <!-- View C: Concept Details Page -->
+        <div id="view-concept-detail" class="content-view fade-in">
+          <button id="btn-concept-back" class="btn btn-secondary btn-xs mb-lg">← Back to Concepts</button>
+          
+          <div class="concept-detail-layout">
+            <div class="concept-text-column glass-panel">
+              <h2 id="concept-detail-title">Binary Search</h2>
+              <div class="complexity-box mt-md">
+                <div class="complexity-tag">Time: <strong id="concept-detail-time" class="text-cyan">O(log N)</strong></div>
+                <div class="complexity-tag">Space: <strong id="concept-detail-space" class="text-orange">O(1)</strong></div>
+              </div>
+              
+              <div class="info-section">
+                <h4>What is it?</h4>
+                <p id="concept-detail-definition" class="text-muted">Definition...</p>
+              </div>
+
+              <div class="info-section">
+                <h4>How it works</h4>
+                <p id="concept-detail-works" class="text-muted">Logic...</p>
+              </div>
+
+              <div class="info-section">
+                <h4>Step-by-step logic</h4>
+                <ol id="concept-detail-steps" class="text-muted mt-sm" style="padding-left:1.25rem;">
+                  <!-- Steps -->
+                </</ol>
+              </div>
+
+              <div class="info-section">
+                <h4>Real Interview Use Cases</h4>
+                <ul id="concept-detail-cases" class="text-muted mt-sm" style="padding-left:1.25rem;">
+                  <!-- Cases -->
+                </ul>
+              </div>
+
+              <div class="info-section">
+                <h4>Common Mistakes</h4>
+                <ul id="concept-detail-mistakes" class="text-danger mt-sm" style="padding-left:1.25rem;">
+                  <!-- Mistakes -->
+                </ul>
+              </div>
+
+              <button id="btn-concept-practice" class="btn btn-primary mt-lg">Practice Question</button>
+            </div>
+
+            <!-- Right Visualizer Column -->
+            <div class="concept-visuals-column" id="concept-visualizer-container">
+              <!-- Visualizer loaded dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- View D: Practice Problems -->
+        <div id="view-problems" class="content-view fade-in">
+          <div class="section-intro mb-lg">
+            <h2>Practice Coding Problems</h2>
+            <p class="text-muted">Solve curated DSA questions and compile code to pass test cases.</p>
+          </div>
+
+          <!-- Question filter actions -->
+          <div class="problems-filter-bar">
+            <select id="filter-topic" class="select-tech">
+              <option value="all">All Topics</option>
+              <option value="Arrays">Arrays</option>
+              <option value="Strings">Strings</option>
+              <option value="Linked Lists">Linked Lists</option>
+              <option value="Stack">Stack</option>
+              <option value="Graphs">Graphs</option>
+              <option value="Binary Search">Binary Search</option>
+              <option value="Dynamic Programming">Dynamic Programming</option>
+            </select>
+
+            <select id="filter-difficulty" class="select-tech">
+              <option value="all">All Difficulties</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+
+            <select id="filter-frequency" class="select-tech">
+              <option value="all">All Frequencies</option>
+              <option value="Very Frequently Asked">Very Frequently Asked</option>
+              <option value="Frequently Asked">Frequently Asked</option>
+            </select>
+
+            <select id="filter-status" class="select-tech">
+              <option value="all">All Statuses</option>
+              <option value="solved">Solved</option>
+              <option value="unsolved">Unsolved</option>
+            </select>
+
+            <button id="btn-reset-filters" class="btn btn-secondary btn-sm">Reset Filters</button>
+          </div>
+
+          <!-- Problems grid table -->
+          <div class="problems-table-card glass-panel neon-border">
+            <table class="problems-table">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Title</th>
+                  <th>Topic</th>
+                  <th>Difficulty</th>
+                  <th>Interview Frequency</th>
+                  <th>Est. Time</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="problems-tbody">
+                <!-- Inject problems rows dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- View E: Coding Practice Interface -->
+        <div id="view-ide" class="content-view fade-in" style="padding: 0;">
+          <div class="ide-view-layout">
+            <!-- Description pane left -->
+            <div class="ide-left-pane">
+              <button id="btn-ide-back" class="btn btn-secondary btn-xs">← Back to Problems</button>
+              
+              <div class="problem-desc-card glass-panel">
+                <h2 id="ide-problem-title">Two Sum</h2>
+                <div class="complexity-box mt-sm">
+                  <span id="ide-problem-topic" class="badge badge-outline sm">Arrays</span>
+                  <span id="ide-problem-difficulty" class="badge easy sm">Easy</span>
+                  <span id="ide-problem-freq" class="badge badge-outline sm">🔥 Very Frequent</span>
+                </div>
+                
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+                
+                <div id="ide-problem-statement" class="prob-statement">
+                  Problem statement ...
+                </div>
+
+                <div class="info-section">
+                  <h4>Examples</h4>
+                  <div id="ide-problem-examples">
+                    <!-- Examples -->
+                  </div>
+                </div>
+
+                <div class="info-section">
+                  <h4>Constraints</h4>
+                  <ul id="ide-problem-constraints" class="constraints-list text-muted mt-sm">
+                    <!-- Constraints -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workspace code editor right -->
+            <div class="ide-right-pane" id="ide-editor-container">
+              <!-- editor layout injected from editor.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- View F: Timed Quiz Configurator -->
+        <div id="view-quiz-config" class="content-view fade-in">
+          <div class="section-intro mb-lg">
+            <h2>Timed DSA Challenges</h2>
+            <p class="text-muted">Challenge yourself under actual time pressures and trace evaluations.</p>
+          </div>
+
+          <div class="quiz-config-card glass-panel neon-border">
+            <h3>Configure Timed Quiz</h3>
+            
+            <div class="form-group">
+              <label for="quiz-topic-select">Select Topic</label>
+              <select id="quiz-topic-select" class="select-tech select-full">
+                <option value="Mixed DSA">Mixed DSA (Comprehensive)</option>
+                <option value="Arrays">Arrays</option>
+                <option value="Stack">Stack</option>
+                <option value="Linked List">Linked List</option>
+                <option value="Trees">Trees</option>
+                <option value="Graphs">Graphs</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="quiz-difficulty-select">Select Difficulty</label>
+              <select id="quiz-difficulty-select" class="select-tech select-full">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="quiz-time-select">Select Time Duration</label>
+              <select id="quiz-time-select" class="select-tech select-full">
+                <option value="5">5 Minutes</option>
+                <option value="10">10 Minutes</option>
+                <option value="20">20 Minutes</option>
+                <option value="30">30 Minutes</option>
+              </select>
+            </div>
+
+            <button id="btn-start-quiz" class="btn btn-primary w-full mt-lg">Start Examination</button>
+          </div>
+        </div>
+
+        <!-- View G: Timed Quiz Active Exam Panel -->
+        <div id="view-quiz-active" class="content-view fade-in">
+          <!-- Populated by quiz.js / interview.js -->
+        </div>
+
+        <!-- View H: Quiz & Interview Result Scorecard -->
+        <div id="view-quiz-results" class="content-view fade-in">
+          <!-- Populated by quiz.js / interview.js -->
+        </div>
+
+        <!-- View I: Interview Rounds Simulator -->
+        <div id="view-interviews" class="content-view fade-in">
+          <!-- Populated by interview.js -->
+        </div>
+
+        <!-- View J: Rapid Fire Speed Game -->
+        <div id="view-rapid-fire" class="content-view fade-in">
+          <!-- Populated by interview.js -->
+        </div>
+
+        <!-- View K: Progress & Achievements Tracking -->
+        <div id="view-progress" class="content-view fade-in">
+          <div class="section-intro mb-lg">
+            <h2>My Learning Progress</h2>
+            <p class="text-muted">Track completed milestones, overall solve counts, and unlocked developer badges.</p>
+          </div>
+
+          <div class="results-details-grid">
+            <!-- Progress bar charts -->
+            <div class="glass-panel neon-border">
+              <h3>DSA Coverage Progress</h3>
+              <div class="progress-list-section mt-md" id="progress-topics-list">
+                <!-- Topics bars -->
+              </div>
+            </div>
+
+            <!-- Stats statistics -->
+            <div class="metrics-card-grid">
+              <div class="metric-card glass-panel">
+                <span class="label text-muted">Total Solved</span>
+                <span class="val text-cyan font-mono" id="prog-solved-val">0</span>
+              </div>
+              <div class="metric-card glass-panel">
+                <span class="label text-muted">Streak Days</span>
+                <span class="val text-orange font-mono" id="prog-streak-val">0</span>
+              </div>
+              <div class="metric-card glass-panel">
+                <span class="label text-muted">Accuracy Rating</span>
+                <span class="val text-success font-mono" id="prog-accuracy-val">0%</span>
+              </div>
+              <div class="metric-card glass-panel">
+                <span class="label text-muted">Longest Streak</span>
+                <span class="val text-white font-mono" id="prog-longest-streak-val">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Achievements Showcase -->
+          <div class="glass-panel neon-border mt-lg">
+            <h3>Developer Badges Showcase</h3>
+            <div class="badges-showcase-grid" id="achievements-showcase-grid">
+              <!-- Neon badges loaded from app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- View L: Performance Review Dashboard -->
+        <div id="view-performance" class="content-view fade-in">
+          <div class="section-intro mb-lg">
+            <h2>Dynamic Performance Analysis</h2>
+            <p class="text-muted">Detailed strengths, weaknesses, speed analytics, and targeted recommendations.</p>
+          </div>
+
+          <div class="perf-grid-1">
+            <!-- Strong areas -->
+            <div class="perf-card glass-panel neon-border">
+              <h3>Strong Concepts</h3>
+              <div class="perf-bubble-list mt-sm" id="perf-strong-concepts">
+                <!-- Bubbles -->
+              </div>
+            </div>
+
+            <!-- Weak areas -->
+            <div class="perf-card glass-panel neon-border">
+              <h3>Needs Focus</h3>
+              <div class="perf-bubble-list mt-sm" id="perf-weak-concepts">
+                <!-- Bubbles -->
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel neon-border mt-lg">
+            <h3>Personalized Recommendations</h3>
+            <div class="perf-suggestions" id="perf-recs-container">
+              <!-- Personalized suggestions -->
+            </div>
+          </div>
+        </div>
+
+        <!-- View M: Settings view -->
+        <div id="view-settings" class="content-view fade-in">
+          <div class="section-intro mb-lg">
+            <h2>Platform Settings</h2>
+            <p class="text-muted">Manage profile details, selected languages, and developer stats storage.</p>
+          </div>
+
+          <div class="settings-view-card glass-panel neon-border">
+            <h3>General Settings</h3>
+            
+            <div class="form-group">
+              <label>Reset State Store</label>
+              <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0.5rem;">Clears all your progress, streak records, quiz completions, and unlocks. This will reset the platform storage.</p>
+              <button id="btn-reset-storage" class="btn btn-warning btn-sm">Clear LocalStorage Cache</button>
+            </div>
+
+            <div class="form-group mt-lg">
+              <label>Switch Active Language</label>
+              <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0.5rem;">Changes the global selected language for practice templates and header indicators.</p>
+              <button id="btn-settings-lang-switch" class="btn btn-secondary btn-sm">Select New Language</button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- SCRIPT BINDINGS -->
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/visualizer.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/interview.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
